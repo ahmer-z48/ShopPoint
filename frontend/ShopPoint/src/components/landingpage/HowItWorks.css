@@ -1,0 +1,226 @@
+/* =========================
+   HOW IT WORKS SECTION
+========================= */
+
+.how-section {
+  padding: 90px 0;
+  background: #ffffff;
+}
+
+/* Main container */
+
+.section-container {
+  width: min(1120px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADING
+========================= */
+
+.how-heading {
+  max-width: 650px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.section-label {
+  display: inline-block;
+
+  margin-bottom: 12px;
+  padding: 6px 12px;
+
+  background: #eaf6ef;
+  color: #16834a;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.how-heading h2 {
+  margin: 0;
+
+  color: #202824;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.how-heading p {
+  max-width: 560px;
+
+  margin: 14px auto 0;
+
+  color: #737b76;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================
+   STEPS GRID
+========================= */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+
+/* =========================
+   STEP CARD
+========================= */
+
+.step-card {
+  position: relative;
+
+  padding: 30px 26px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8e4;
+  border-radius: 14px;
+
+  text-align: center;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+
+  border-color: #cfe5d8;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   STEP NUMBER
+========================= */
+
+.step-number {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+
+  color: #cfd8d3;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   ICON
+========================= */
+
+.step-icon {
+  width: 58px;
+  height: 58px;
+
+  margin: 5px auto 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eaf6ef;
+  color: #16834a;
+
+  border-radius: 14px;
+
+  transition: 0.25s ease;
+}
+
+.step-card:hover .step-icon {
+  background: #16834a;
+  color: #ffffff;
+
+  transform: scale(1.05);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.step-card h3 {
+  margin: 0;
+
+  color: #202824;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.step-card p {
+  margin: 10px 0 0;
+
+  color: #737b76;
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 850px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    padding: 28px 25px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .how-section {
+    padding: 65px 0;
+  }
+
+  .how-heading {
+    margin-bottom: 35px;
+  }
+
+  .how-heading h2 {
+    font-size: 28px;
+  }
+
+  .how-heading p {
+    font-size: 13px;
+  }
+
+  .step-card {
+    padding: 25px 20px;
+  }
+}

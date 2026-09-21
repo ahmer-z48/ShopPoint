@@ -1,0 +1,159 @@
+/* =========================
+   SHOP SECTION
+========================= */
+
+.shops-section {
+  padding:40px;
+  background: #fafcfb;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.shops-section .wrap {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+/* =========================
+   HEADING CONTENT
+========================= */
+
+.section-head-content {
+  flex: 1;
+}
+
+.section-head h2 {
+  margin: 0;
+  color: var(--green-dark);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.section-head p {
+  max-width: 650px;
+  margin: 12px 0 0;
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================
+   VIEW ALL BUTTON
+========================= */
+
+.view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+
+  padding: 12px 18px;
+
+  background: #ffffff;
+  color: var(--green-dark);
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+}
+
+.view-all:hover {
+  background: var(--green);
+  color: #ffffff;
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   SHOP GRID
+========================= */
+
+.shop-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .shops-section {
+    padding: 65px 0;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .section-head h2 {
+    font-size: 30px;
+  }
+
+  .section-head p {
+    font-size: 14px;
+  }
+
+  .view-all {
+    width: fit-content;
+  }
+
+  .shop-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shops-section {
+    padding: 55px 0;
+  }
+
+  .shops-section .wrap {
+    width: 90%;
+  }
+
+  .section-head h2 {
+    font-size: 27px;
+  }
+
+  .view-all {
+    width: 100%;
+    justify-content: center;
+  }
+}

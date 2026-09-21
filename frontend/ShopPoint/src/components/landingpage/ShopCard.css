@@ -1,0 +1,332 @@
+/* =========================
+   SHOP CARD
+========================= */
+
+.shop-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8e4;
+  border-radius: 14px;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 400px;
+  margin: 50px;
+  cursor: pointer;
+}
+
+.shop-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.shop-image-wrapper {
+  position: relative;
+
+  height: 210px;
+
+  overflow: hidden;
+
+  background: #f5f7f6;
+}
+
+.shop-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.4s ease;
+}
+
+.shop-card:hover .shop-image {
+  transform: scale(1.05);
+}
+
+
+/* =========================
+   FAVORITE BUTTON
+========================= */
+
+.favorite-btn {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #343a37;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.favorite-btn:hover {
+  background: #16834a;
+
+  color: white;
+
+  transform: scale(1.05);
+}
+
+.favorite-btn.favorite-active {
+  background: #16834a;
+
+  color: white;
+}
+
+
+/* =========================
+   SHOP STATUS
+========================= */
+
+.shop-status {
+  position: absolute;
+
+  left: 12px;
+  bottom: 12px;
+
+  padding: 6px 10px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+.shop-status.status-open {
+  color: #0f6338;
+}
+
+.shop-status.status-closed {
+  color: #c76c26;
+}
+
+
+/* =========================
+   SHOP CONTENT
+========================= */
+
+.shop-content {
+  padding: 20px;
+
+  background: white;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.shop-title-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.shop-content h3 {
+  margin: 0;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  color: #202824;
+
+  font-size: 19px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+.shop-location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 9px;
+
+  color: #737b76;
+
+  font-size: 12px;
+}
+
+.shop-location svg {
+  flex-shrink: 0;
+
+  color: #16834a;
+}
+
+
+/* =========================
+   ARROW
+========================= */
+
+.shop-arrow {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #e2e8e4;
+
+  background: #f5f7f6;
+
+  color: #343a37;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.shop-arrow:hover {
+  background: #16834a;
+
+  color: white;
+
+  border-color: #16834a;
+
+  transform: translate(2px, -2px);
+}
+
+
+/* =========================
+   RATING
+========================= */
+
+.shop-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 14px;
+
+  font-size: 12px;
+}
+
+.shop-rating svg {
+  color: #e7a51c;
+}
+
+.shop-rating strong {
+  color: #202824;
+
+  font-size: 12px;
+}
+
+.shop-rating span {
+  color: #737b76;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.shop-services {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 15px;
+}
+
+.shop-services span {
+  padding: 6px 9px;
+
+  background: #f5f7f6;
+
+  color: #343a37;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  transition: 0.2s ease;
+}
+
+.shop-services span:hover {
+  background: #e8f5ee;
+
+  color: #16834a;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .shop-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .shop-image-wrapper {
+    height: 190px;
+  }
+
+  .shop-content {
+    padding: 16px;
+  }
+
+  .shop-content h3 {
+    font-size: 17px;
+  }
+}
