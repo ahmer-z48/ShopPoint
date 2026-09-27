@@ -409,6 +409,7 @@ const configuredProducts = products.map((product) => ({
   // All existing grocery, bakery, pharmacy, fashion,
   // electronics, hardware, and mobile products use cart.
   purchaseType: "cart",
+  
 }));
 
 export default configuredProducts;

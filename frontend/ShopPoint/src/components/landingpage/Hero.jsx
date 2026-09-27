@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Search,
@@ -9,29 +10,30 @@ import {
 } from "lucide-react";
 
 const Hero = () => {
-
   // Stores whatever the user types in the search box
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Used to navigate to the search results page
+  const navigate = useNavigate();
+
   // Runs when the Search button is clicked
   const handleSearch = () => {
+    const query = searchTerm.trim();
 
-    if (searchTerm.trim() === "") {
+    if (query === "") {
       alert("Please enter something to search.");
       return;
     }
 
-    console.log("Searching for:", searchTerm);
-
+    // Send the searched product to the search results page
+    navigate(`/search?query=${encodeURIComponent(query)}`);
   };
 
   // Allows user to press Enter instead of clicking Search
   const handleKeyDown = (event) => {
-
     if (event.key === "Enter") {
       handleSearch();
     }
-
   };
 
   return (

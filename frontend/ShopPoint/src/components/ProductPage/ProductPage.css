@@ -232,6 +232,57 @@
   color: var(--product-green);
   font-weight: 800;
 }
+.product-appointment-form {
+  margin-top: 22px;
+  padding: 17px;
+  border: 1px solid #cfe5d6;
+  border-radius: 13px;
+  background: #f5fbf7;
+}
+.appointment-heading {
+  display: flex;
+  gap: 10px;
+  color: var(--product-green);
+}
+.appointment-heading strong,
+.appointment-heading small {
+  display: block;
+}
+.appointment-heading strong {
+  color: var(--product-deep);
+  font-size: 14px;
+}
+.appointment-heading small {
+  margin-top: 3px;
+  color: var(--product-muted);
+  font-size: 12px;
+}
+.appointment-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin-top: 15px;
+}
+.appointment-fields label {
+  color: #45544a;
+  font-size: 11px;
+  font-weight: 750;
+}
+.appointment-fields input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #cfddd3;
+  border-radius: 8px;
+  color: var(--product-deep);
+  background: white;
+  font: inherit;
+  font-size: 13px;
+}
+.product-appointment-form .product-add-button {
+  margin-top: 14px;
+}
 @media (max-width: 760px) {
   .product-page {
     padding: 25px 15px 52px;
@@ -247,5 +298,8 @@
   }
   .product-information {
     margin-top: 30px;
+  }
+  .appointment-fields {
+    grid-template-columns: 1fr;
   }
 }

@@ -25,36 +25,24 @@ const DisplayShop = () => {
 
   const shop = shops.find((shop) => shop.id === id);
 
-  const shopProducts = products.filter(
-    (product) => product.shopId === id
-  );
+  const shopProducts = products.filter((product) => product.shopId === id);
 
   const [favorite, setFavorite] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] =
-    useState("All Products");
+  const [selectedCategory, setSelectedCategory] = useState("All Products");
 
   const [cartCount, setCartCount] = useState(() => {
-    const cart = JSON.parse(
-      localStorage.getItem("shopPointCart") || "[]"
-    );
+    const cart = JSON.parse(localStorage.getItem("shopPointCart") || "[]");
 
-    return cart.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
+    return cart.reduce((total, item) => total + item.quantity, 0);
   });
 
   const handleQuickAdd = (event, product) => {
     event.stopPropagation();
 
-    const cart = JSON.parse(
-      localStorage.getItem("shopPointCart") || "[]"
-    );
+    const cart = JSON.parse(localStorage.getItem("shopPointCart") || "[]");
 
-    const existingProduct = cart.find(
-      (item) => item.productId === product.id
-    );
+    const existingProduct = cart.find((item) => item.productId === product.id);
 
     const updatedCart = existingProduct
       ? cart.map((item) =>
@@ -63,7 +51,7 @@ const DisplayShop = () => {
                 ...item,
                 quantity: item.quantity + 1,
               }
-            : item
+            : item,
         )
       : [
           ...cart,
@@ -73,17 +61,9 @@ const DisplayShop = () => {
           },
         ];
 
-    localStorage.setItem(
-      "shopPointCart",
-      JSON.stringify(updatedCart)
-    );
+    localStorage.setItem("shopPointCart", JSON.stringify(updatedCart));
 
-    setCartCount(
-      updatedCart.reduce(
-        (total, item) => total + item.quantity,
-        0
-      )
-    );
+    setCartCount(updatedCart.reduce((total, item) => total + item.quantity, 0));
   };
 
   if (!shop) {
@@ -91,21 +71,13 @@ const DisplayShop = () => {
       <div className="shop-display-page">
         <header className="shop-display-header">
           <div className="shop-display-header-container">
-            <Link
-              to="/all-shops"
-              className="shop-back-btn"
-            >
+            <Link to="/all-shops" className="shop-back-btn">
               <ArrowLeft size={18} />
               <span>All Shops</span>
             </Link>
 
-            <Link
-              to="/"
-              className="shop-display-logo"
-            >
-              <div className="shop-display-logo-icon">
-                SP
-              </div>
+            <Link to="/" className="shop-display-logo">
+              <div className="shop-display-logo-icon">SP</div>
 
               <span>Shop Point</span>
             </Link>
@@ -125,9 +97,7 @@ const DisplayShop = () => {
         >
           <h1>Shop Not Found</h1>
 
-          <p>
-            The shop you are looking for does not exist.
-          </p>
+          <p>The shop you are looking for does not exist.</p>
 
           <Link
             to="/all-shops"
@@ -144,67 +114,51 @@ const DisplayShop = () => {
 
   const categories = [
     "All Products",
-    ...new Set(
-      shopProducts.map((product) => product.category)
-    ),
+    ...new Set(shopProducts.map((product) => product.category)),
   ];
 
-  const filteredProducts = shopProducts.filter(
-    (product) => {
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+  const filteredProducts = shopProducts.filter((product) => {
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
 
-      const matchesCategory =
-        selectedCategory === "All Products" ||
-        product.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === "All Products" ||
+      product.category === selectedCategory;
 
-      return matchesSearch && matchesCategory;
-    }
-  );
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="shop-display-page">
       <header className="shop-display-header">
         <div className="shop-display-header-container">
-          <Link
-            to="/all-shops"
-            className="shop-back-btn"
-          >
+          <Link to="/all-shops" className="shop-back-btn">
             <ArrowLeft size={18} />
             <span>All Shops</span>
           </Link>
-
-          <Link
-            to="/"
-            className="shop-display-logo"
-          >
-            <div className="shop-display-logo-icon">
-              SP
-            </div>
+          <Link to="/" className="shop-display-logo">
+            <div className="shop-display-logo-icon">SP</div>
 
             <span>Shop Point</span>
           </Link>
-
+          
           <button
             type="button"
             className="shop-cart-btn"
+            onClick={() => navigate("/billing")}
           >
             <ShoppingCart size={20} />
 
-            <span>
-              Cart {cartCount > 0 ? `(${cartCount})` : ""}
-            </span>
+            <span>Cart {cartCount > 0 ? `(${cartCount})` : ""}</span>
           </button>
+          
         </div>
       </header>
 
       <section className="shop-hero">
         <div className="shop-cover">
-          <img
-            src={shop.image}
-            alt={shop.name}
-          />
+          <img src={shop.image} alt={shop.name} />
 
           <div className="shop-cover-overlay"></div>
         </div>
@@ -220,9 +174,7 @@ const DisplayShop = () => {
             <div className="shop-profile-info">
               <div className="shop-name-row">
                 <div>
-                  <div className="shop-category-label">
-                    {shop.category}
-                  </div>
+                  <div className="shop-category-label">{shop.category}</div>
 
                   <h1>{shop.name}</h1>
                 </div>
@@ -230,41 +182,23 @@ const DisplayShop = () => {
                 <button
                   type="button"
                   className={`shop-save-btn ${
-                    favorite
-                      ? "shop-save-active"
-                      : ""
+                    favorite ? "shop-save-active" : ""
                   }`}
-                  onClick={() =>
-                    setFavorite(!favorite)
-                  }
+                  onClick={() => setFavorite(!favorite)}
                 >
-                  <Heart
-                    size={20}
-                    fill={
-                      favorite
-                        ? "currentColor"
-                        : "none"
-                    }
-                  />
+                  <Heart size={20} fill={favorite ? "currentColor" : "none"} />
 
-                  <span>
-                    {favorite ? "Saved" : "Save"}
-                  </span>
+                  <span>{favorite ? "Saved" : "Save"}</span>
                 </button>
               </div>
 
               <div className="shop-meta">
                 <div className="shop-rating-detail">
-                  <Star
-                    size={17}
-                    fill="currentColor"
-                  />
+                  <Star size={17} fill="currentColor" />
 
                   <strong>{shop.rating}</strong>
 
-                  <span>
-                    ({shop.reviews} reviews)
-                  </span>
+                  <span>({shop.reviews} reviews)</span>
                 </div>
 
                 <div className="shop-meta-item">
@@ -282,9 +216,7 @@ const DisplayShop = () => {
                 <span className="shop-open-status">
                   <span></span>
 
-                  {shop.status === "Open"
-                    ? "Open now"
-                    : "Closed"}
+                  {shop.status === "Open" ? "Open now" : "Closed"}
                 </span>
 
                 {shop.services.includes("Delivery") && (
@@ -309,9 +241,7 @@ const DisplayShop = () => {
       <section className="shop-information">
         <div className="shop-information-container">
           <div className="shop-about">
-            <span className="section-label">
-              ABOUT THE SHOP
-            </span>
+            <span className="section-label">ABOUT THE SHOP</span>
 
             <h2>
               Everything you need,
@@ -342,15 +272,11 @@ const DisplayShop = () => {
         <div className="shop-products-container">
           <div className="products-heading">
             <div>
-              <span className="section-label">
-                SHOP PRODUCTS
-              </span>
+              <span className="section-label">SHOP PRODUCTS</span>
 
               <h2>Browse Products</h2>
 
-              <p>
-                Find what you need from this shop.
-              </p>
+              <p>Find what you need from this shop.</p>
             </div>
           </div>
 
@@ -361,9 +287,7 @@ const DisplayShop = () => {
               type="text"
               placeholder="Search products in this shop..."
               value={searchTerm}
-              onChange={(event) =>
-                setSearchTerm(event.target.value)
-              }
+              onChange={(event) => setSearchTerm(event.target.value)}
             />
           </div>
 
@@ -373,13 +297,9 @@ const DisplayShop = () => {
                 type="button"
                 key={category}
                 className={
-                  selectedCategory === category
-                    ? "category-active"
-                    : ""
+                  selectedCategory === category ? "category-active" : ""
                 }
-                onClick={() =>
-                  setSelectedCategory(category)
-                }
+                onClick={() => setSelectedCategory(category)}
               >
                 {category}
               </button>
@@ -387,9 +307,7 @@ const DisplayShop = () => {
           </div>
 
           <div className="product-results-info">
-            <span>
-              {filteredProducts.length} products
-            </span>
+            <span>{filteredProducts.length} products</span>
           </div>
 
           {filteredProducts.length > 0 ? (
@@ -400,9 +318,7 @@ const DisplayShop = () => {
                   key={product.id}
                   role="link"
                   tabIndex={0}
-                  onClick={() =>
-                    navigate(`/product/${product.id}`)
-                  }
+                  onClick={() => navigate(`/product/${product.id}`)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
                       navigate(`/product/${product.id}`);
@@ -410,10 +326,7 @@ const DisplayShop = () => {
                   }}
                 >
                   <div className="product-image-wrapper">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                    />
+                    <img src={product.image} alt={product.name} />
 
                     <span>{product.category}</span>
                   </div>
@@ -432,9 +345,7 @@ const DisplayShop = () => {
                       <button
                         type="button"
                         className="add-cart-btn"
-                        onClick={(event) =>
-                          handleQuickAdd(event, product)
-                        }
+                        onClick={(event) => handleQuickAdd(event, product)}
                       >
                         <Plus size={17} />
                         Add
@@ -450,9 +361,7 @@ const DisplayShop = () => {
 
               <h3>No products found</h3>
 
-              <p>
-                Try another product or category.
-              </p>
+              <p>Try another product or category.</p>
             </div>
           )}
         </div>
@@ -462,16 +371,12 @@ const DisplayShop = () => {
         <div className="shop-display-footer-container">
           <div>
             <div className="shop-display-footer-logo">
-              <div className="shop-display-logo-icon">
-                SP
-              </div>
+              <div className="shop-display-logo-icon">SP</div>
 
               <span>Shop Point</span>
             </div>
 
-            <p>
-              Every local shop, one search away.
-            </p>
+            <p>Every local shop, one search away.</p>
           </div>
 
           <div className="shop-footer-links">

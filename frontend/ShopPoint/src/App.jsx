@@ -16,6 +16,7 @@ import VendorRegister from './components/auth/VendorRegister';
 import AllShops from "./components/AllShops/AllShops";
 import DisplayShop from "./components/DisplayShop/DisplayShop";
 import Billing from "./components/Biling/Billing";
+import SearchResults from "./components/landingpage/SearchResults";
 
 // Landing Page
 const LandingPage = () => {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/shop/:id" element={<DisplayShop />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/billing" element={<Billing />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
     </BrowserRouter>
   );
