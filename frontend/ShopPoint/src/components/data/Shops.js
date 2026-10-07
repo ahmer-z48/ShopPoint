@@ -1,4 +1,8 @@
 const shops = [
+  // ==========================================
+  // GROCERY SHOPS
+  // ==========================================
+
   {
     id: "al-falah-grocery",
     name: "Al-Falah Grocery Mart",
@@ -16,6 +20,46 @@ const shops = [
     services: ["Delivery", "Pickup"],
     openingHours: "9:00 AM - 10:00 PM",
   },
+
+  {
+    id: "fresh-choice",
+    name: "Fresh Choice Super Store",
+    category: "Grocery",
+    location: "Airport Road, Quetta",
+    rating: 4.7,
+    reviews: 116,
+    status: "Open",
+    image:
+      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=300&q=80",
+    description:
+      "Fresh Choice Super Store offers groceries, household essentials, fresh food items, beverages, and daily-use products.",
+    services: ["Delivery", "Pickup"],
+    openingHours: "8:00 AM - 11:00 PM",
+  },
+
+  {
+    id: "green-valley-grocery",
+    name: "Green Valley Grocery",
+    category: "Grocery",
+    location: "Samungli Road, Quetta",
+    rating: 4.5,
+    reviews: 84,
+    status: "Open",
+    image:
+      "https://images.unsplash.com/photo-1579113800032-c38bd7635818?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=300&q=80",
+    description:
+      "Green Valley Grocery provides fresh groceries, dairy products, beverages, bakery items, and household essentials.",
+    services: ["Delivery", "Pickup"],
+    openingHours: "9:00 AM - 10:30 PM",
+  },
+
+  // ==========================================
+  // BAKERY SHOPS
+  // ==========================================
 
   {
     id: "noor-bakers",
@@ -36,6 +80,28 @@ const shops = [
   },
 
   {
+    id: "royal-bakers",
+    name: "Royal Bakers & Sweets",
+    category: "Bakery",
+    location: "Satellite Town, Quetta",
+    rating: 4.6,
+    reviews: 73,
+    status: "Open",
+    image:
+      "https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=300&q=80",
+    description:
+      "Royal Bakers & Sweets serves cakes, fresh bread, donuts, pastries, sweets, and other bakery products.",
+    services: ["Delivery", "Pickup"],
+    openingHours: "8:30 AM - 10:30 PM",
+  },
+
+  // ==========================================
+  // ELECTRONICS SHOPS
+  // ==========================================
+
+  {
     id: "rafiq-electronics",
     name: "Rafiq Electronics Hub",
     category: "Electronics",
@@ -51,60 +117,6 @@ const shops = [
       "Rafiq Electronics Hub provides mobile accessories, electronic devices, cables, chargers, and other everyday electronics.",
     services: ["Delivery", "Pickup"],
     openingHours: "10:00 AM - 9:00 PM",
-  },
-
-  {
-    id: "city-care-pharmacy",
-    name: "City Care Pharmacy",
-    category: "Pharmacy",
-    location: "Satellite Town, Quetta",
-    rating: 4.9,
-    reviews: 64,
-    status: "Open",
-    image:
-      "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80",
-    logo:
-      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=300&q=80",
-    description:
-      "City Care Pharmacy provides healthcare products, personal care items, wellness products, and everyday pharmacy essentials.",
-    services: ["Delivery"],
-    openingHours: "9:00 AM - 11:00 PM",
-  },
-
-  {
-    id: "style-junction",
-    name: "Style Junction Fashion",
-    category: "Fashion",
-    location: "Prince Road, Quetta",
-    rating: 4.4,
-    reviews: 142,
-    status: "Open",
-    image:
-      "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1200&q=80",
-    logo:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Style Junction Fashion offers a variety of clothing, accessories, and fashion products for men and women.",
-    services: ["Pickup only"],
-    openingHours: "11:00 AM - 10:00 PM",
-  },
-
-  {
-    id: "al-haq-hardware",
-    name: "Al-Haq Hardware Store",
-    category: "Hardware",
-    location: "Cantt Road, Quetta",
-    rating: 4.5,
-    reviews: 77,
-    status: "Closed",
-    image:
-      "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=1200&q=80",
-    logo:
-      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Al-Haq Hardware Store provides tools, construction supplies, electrical accessories, and other hardware products.",
-    services: ["Delivery", "Pickup"],
-    openingHours: "9:00 AM - 8:00 PM",
   },
 
   {
@@ -126,21 +138,87 @@ const shops = [
   },
 
   {
-    id: "fresh-choice",
-    name: "Fresh Choice Super Store",
-    category: "Grocery",
-    location: "Airport Road, Quetta",
-    rating: 4.7,
-    reviews: 116,
+    id: "quetta-mobile-tech",
+    name: "Quetta Mobile & Tech",
+    category: "Electronics",
+    location: "Prince Road, Quetta",
+    rating: 4.4,
+    reviews: 102,
     status: "Open",
     image:
-      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=1200&q=80",
     logo:
-      "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=300&q=80",
+      "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=300&q=80",
     description:
-      "Fresh Choice Super Store offers groceries, household essentials, fresh food items, beverages, and daily-use products.",
+      "Quetta Mobile & Tech offers smartphones, chargers, earbuds, power banks, mobile accessories, and other electronic products.",
     services: ["Delivery", "Pickup"],
-    openingHours: "8:00 AM - 11:00 PM",
+    openingHours: "10:00 AM - 10:00 PM",
+  },
+
+  // ==========================================
+  // PHARMACY
+  // ==========================================
+
+  {
+    id: "city-care-pharmacy",
+    name: "City Care Pharmacy",
+    category: "Pharmacy",
+    location: "Satellite Town, Quetta",
+    rating: 4.9,
+    reviews: 64,
+    status: "Open",
+    image:
+      "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=300&q=80",
+    description:
+      "City Care Pharmacy provides healthcare products, personal care items, wellness products, and everyday pharmacy essentials.",
+    services: ["Delivery"],
+    openingHours: "9:00 AM - 11:00 PM",
+  },
+
+  // ==========================================
+  // FASHION
+  // ==========================================
+
+  {
+    id: "style-junction",
+    name: "Style Junction Fashion",
+    category: "Fashion",
+    location: "Prince Road, Quetta",
+    rating: 4.4,
+    reviews: 142,
+    status: "Open",
+    image:
+      "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=300&q=80",
+    description:
+      "Style Junction Fashion offers a variety of clothing, accessories, and fashion products for men and women.",
+    services: ["Pickup only"],
+    openingHours: "11:00 AM - 10:00 PM",
+  },
+
+  // ==========================================
+  // HARDWARE
+  // ==========================================
+
+  {
+    id: "al-haq-hardware",
+    name: "Al-Haq Hardware Store",
+    category: "Hardware",
+    location: "Cantt Road, Quetta",
+    rating: 4.5,
+    reviews: 77,
+    status: "Closed",
+    image:
+      "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=1200&q=80",
+    logo:
+      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=300&q=80",
+    description:
+      "Al-Haq Hardware Store provides tools, construction supplies, electrical accessories, and other hardware products.",
+    services: ["Delivery", "Pickup"],
+    openingHours: "9:00 AM - 8:00 PM",
   },
 ];
 

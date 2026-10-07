@@ -287,7 +287,7 @@ const RiderRegister = () => {
                     >
                       <option value="">Select your vehicle</option>
                       <option value="Motorcycle">Motorcycle</option>
-                      <option value="Bicycle">Bicycle</option>
+                    
                       <option value="Car">Car</option>
                       <option value="Rickshaw">Rickshaw</option>
                       <option value="Van">Van</option>
