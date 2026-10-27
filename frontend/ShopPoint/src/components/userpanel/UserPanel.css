@@ -1,0 +1,272 @@
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.orders-card .orders-list {
+  padding-top: 22px;
+}
+
+.orders-card .orders-empty {
+  padding: 38px 15px 10px;
+  border: 0;
+  background: transparent;
+}
+
+.order-card {
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  background: #fff;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-number {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-icon,
+.orders-empty-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #15803d;
+  background: #e8f5e9;
+  border-radius: 12px;
+}
+
+.order-icon {
+  width: 44px;
+  height: 44px;
+}
+
+.order-number span,
+.order-card-footer > div > span {
+  display: block;
+  margin-bottom: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.order-number h3 {
+  margin: 0;
+  color: #17231b;
+  font-size: 16px;
+}
+
+.order-status {
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.order-status-success {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.order-status-pending {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.order-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 15px 20px;
+  background: #fafafa;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.order-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.order-card-items {
+  padding: 0 20px;
+}
+
+.order-history-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-history-item-image {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.order-history-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-history-item-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.order-history-item-info strong {
+  color: #374151;
+  font-size: 14px;
+}
+
+.order-history-item-info span {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.order-history-item > strong {
+  color: #17231b;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 20px;
+}
+
+.order-card-footer > div > strong {
+  color: #15803d;
+  font-size: 20px;
+}
+
+.order-track-link,
+.user-primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border-radius: 9px;
+  background: #15803d;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.order-track-link:hover,
+.user-primary-link:hover {
+  background: #166534;
+}
+
+.orders-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 55px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.orders-empty-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.orders-empty h1,
+.orders-empty h2 {
+  margin: 4px 0;
+  color: #17231b;
+}
+
+.orders-empty p {
+  max-width: 420px;
+  margin: 0 0 10px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .order-card-header {
+    align-items: flex-start;
+  }
+
+  .order-card-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-card-footer {
+    align-items: stretch;
+  }
+
+  .order-track-link {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* My Orders — Order ID heading */
+.order-card .order-card-header .order-number {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-card .order-card-header .order-number > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.order-card .order-card-header .order-number span {
+  display: block;
+  margin: 0;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.order-card .order-card-header .order-number h3 {
+  display: block;
+  margin: 0;
+  color: #17231b;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+}

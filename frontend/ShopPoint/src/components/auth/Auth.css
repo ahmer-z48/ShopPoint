@@ -477,3 +477,14 @@
   }
 
 }
+.auth-error {
+  color: #dc2626;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.auth-success {
+  color: #15803d;
+  font-size: 14px;
+  margin-bottom: 12px;
+}

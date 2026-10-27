@@ -10,15 +10,28 @@ import {
   Package,
   Check,
   SlidersHorizontal,
+  UserRound,
+  Heart,
+  Settings,
+  LogOut,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
+import { useUser } from "../../Context/UserContext";
+import { Link, useNavigate } from "react-router-dom";
 import shops from "../data/Shops";
 import products from "../data/product";
 import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+
+  const { user, isLoggedIn, logout } = useUser();
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  function handleLogout() {
+    logout();
+    setProfileOpen(false);
+    navigate("/");
+  }
 
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -70,14 +83,11 @@ const Navbar = () => {
         const productName = product.name?.toLowerCase() || "";
         const productCategory = product.category?.toLowerCase() || "";
 
-        return (
-          productName.includes(query) ||
-          productCategory.includes(query)
-        );
+        return productName.includes(query) || productCategory.includes(query);
       })
       .map((product) => {
         const shop = shops.find(
-          (shop) => String(shop.id) === String(product.shopId)
+          (shop) => String(shop.id) === String(product.shopId),
         );
 
         return {
@@ -214,9 +224,7 @@ const Navbar = () => {
   -------------------------------- */
 
   const selectStatus = (status) => {
-    setSelectedStatus(
-      selectedStatus === status ? "" : status
-    );
+    setSelectedStatus(selectedStatus === status ? "" : status);
   };
 
   /* --------------------------------
@@ -224,9 +232,7 @@ const Navbar = () => {
   -------------------------------- */
 
   const selectService = (service) => {
-    setSelectedService(
-      selectedService === service ? "" : service
-    );
+    setSelectedService(selectedService === service ? "" : service);
   };
 
   /* --------------------------------
@@ -234,9 +240,7 @@ const Navbar = () => {
   -------------------------------- */
 
   const selectRating = (rating) => {
-    setSelectedRating(
-      selectedRating === rating ? "" : rating
-    );
+    setSelectedRating(selectedRating === rating ? "" : rating);
   };
 
   return (
@@ -246,7 +250,6 @@ const Navbar = () => {
       ====================================== */}
 
       <div className="navbar-container">
-
         {/* LOGO */}
 
         <button className="logo" onClick={goHome}>
@@ -266,21 +269,80 @@ const Navbar = () => {
 
         {/* DESKTOP ACTIONS */}
 
-        <div className="nav-actions">
-          <button
-            className="sign-in-btn"
-            onClick={goToLogin}
-          >
-            Sign in
-          </button>
+        {!isLoggedIn ? (
+          <div className="nav-auth-buttons">
+            <Link to="/login" className="nav-login">
+              Sign in
+            </Link>
 
-          <button
-            className="vendor-btn"
-            onClick={goToSignup}
-          >
-            Become a vendor
-          </button>
-        </div>
+            <Link to="/vendor/register" className="nav-vendor">
+              Become a Vendor
+            </Link>
+          </div>
+        ) : (
+          <div className="nav-profile">
+            <button
+              type="button"
+              className="nav-profile-trigger"
+              onClick={() => setProfileOpen((open) => !open)}
+              aria-expanded={profileOpen}
+            >
+              <span className="nav-avatar">
+                <UserRound size={19} />
+              </span>
+
+              <span className="nav-profile-name">{user.name}</span>
+              <ChevronDown size={16} />
+            </button>
+
+            {profileOpen && (
+              <div className="nav-profile-menu">
+                <div className="nav-profile-heading">
+                  <strong>{user.name}</strong>
+                  <small>{user.email}</small>
+                </div>
+
+                <Link to="/account" onClick={() => setProfileOpen(false)}>
+                  <UserRound size={17} />
+                  My Account
+                </Link>
+
+                <Link
+                  to="/account/orders"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  <Package size={17} />
+                  My Orders
+                </Link>
+
+                <Link
+                  to="/account/wishlist"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  <Heart size={17} />
+                  My Wishlist
+                </Link>
+
+                <Link
+                  to="/account/settings"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  <Settings size={17} />
+                  Account Settings
+                </Link>
+
+                <button
+                  type="button"
+                  className="nav-logout"
+                  onClick={handleLogout}
+                >
+                  <LogOut size={17} />
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* MOBILE BUTTON */}
 
@@ -288,11 +350,7 @@ const Navbar = () => {
           className="mobile-menu-btn"
           onClick={() => setMobileMenu(!mobileMenu)}
         >
-          {mobileMenu ? (
-            <X size={25} />
-          ) : (
-            <Menu size={25} />
-          )}
+          {mobileMenu ? <X size={25} /> : <Menu size={25} />}
         </button>
       </div>
 
@@ -302,11 +360,9 @@ const Navbar = () => {
 
       <div className="search-toolbar">
         <div className="search-container">
-
           {/* SEARCH BOX */}
 
           <div className="search-wrapper">
-
             <div className="search-box">
               <Search size={20} />
 
@@ -316,9 +372,7 @@ const Navbar = () => {
                 value={searchTerm}
                 onChange={(event) => {
                   setSearchTerm(event.target.value);
-                  setShowSuggestions(
-                    event.target.value.trim() !== ""
-                  );
+                  setShowSuggestions(event.target.value.trim() !== "");
                 }}
                 onFocus={() => {
                   if (searchTerm.trim()) {
@@ -347,7 +401,6 @@ const Navbar = () => {
 
             {showSuggestions && searchTerm.trim() && (
               <div className="search-suggestions">
-
                 {suggestions.length > 0 ? (
                   <>
                     <div className="suggestions-header">
@@ -358,59 +411,45 @@ const Navbar = () => {
                       </span>
                     </div>
 
-                    {suggestions.slice(0, 8).map(
-                      ({ product, shop }) => (
-                        <button
-                          key={product.id}
-                          className="suggestion-item"
-                          onClick={() =>
-                            handleSearch(product.name)
-                          }
-                        >
-                          {/* PRODUCT IMAGE */}
+                    {suggestions.slice(0, 8).map(({ product, shop }) => (
+                      <button
+                        key={product.id}
+                        className="suggestion-item"
+                        onClick={() => handleSearch(product.name)}
+                      >
+                        {/* PRODUCT IMAGE */}
 
-                          <div className="suggestion-image">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                            />
-                          </div>
+                        <div className="suggestion-image">
+                          <img src={product.image} alt={product.name} />
+                        </div>
 
-                          {/* PRODUCT INFO */}
+                        {/* PRODUCT INFO */}
 
-                          <div className="suggestion-info">
-                            <strong>
-                              {product.name}
-                            </strong>
+                        <div className="suggestion-info">
+                          <strong>{product.name}</strong>
 
-                            <span>
-                              <Store size={14} />
-                              {shop.name}
-                            </span>
+                          <span>
+                            <Store size={14} />
+                            {shop.name}
+                          </span>
 
-                            <small>
-                              <MapPin size={13} />
-                              {shop.location}
-                            </small>
-                          </div>
+                          <small>
+                            <MapPin size={13} />
+                            {shop.location}
+                          </small>
+                        </div>
 
-                          {/* PRICE */}
+                        {/* PRICE */}
 
-                          <div className="suggestion-price">
-                            <strong>
-                              Rs.{" "}
-                              {Number(
-                                product.price
-                              ).toLocaleString()}
-                            </strong>
+                        <div className="suggestion-price">
+                          <strong>
+                            Rs. {Number(product.price).toLocaleString()}
+                          </strong>
 
-                            <span>
-                              / {product.unit}
-                            </span>
-                          </div>
-                        </button>
-                      )
-                    )}
+                          <span>/ {product.unit}</span>
+                        </div>
+                      </button>
+                    ))}
 
                     {/* VIEW ALL */}
 
@@ -428,13 +467,9 @@ const Navbar = () => {
                     <Package size={22} />
 
                     <div>
-                      <strong>
-                        No products found
-                      </strong>
+                      <strong>No products found</strong>
 
-                      <span>
-                        Try another product name
-                      </span>
+                      <span>Try another product name</span>
                     </div>
                   </div>
                 )}
@@ -447,12 +482,9 @@ const Navbar = () => {
           ====================================== */}
 
           <div className="toolbar-dropdown">
-
             <button
               className={`filter-btn ${
-                selectedCategory
-                  ? "active-filter"
-                  : ""
+                selectedCategory ? "active-filter" : ""
               }`}
               onClick={() => {
                 setCategoryOpen(!categoryOpen);
@@ -461,28 +493,21 @@ const Navbar = () => {
                 setShowSuggestions(false);
               }}
             >
-              <span>
-                {selectedCategory || "Categories"}
-              </span>
+              <span>{selectedCategory || "Categories"}</span>
 
               <ChevronDown
                 size={16}
-                className={
-                  categoryOpen ? "rotate-icon" : ""
-                }
+                className={categoryOpen ? "rotate-icon" : ""}
               />
             </button>
 
             {categoryOpen && (
               <div className="dropdown-menu">
-
                 <button
                   className={!selectedCategory ? "selected-option" : ""}
                   onClick={() => selectCategory("")}
                 >
-                  {!selectedCategory && (
-                    <Check size={15} />
-                  )}
+                  {!selectedCategory && <Check size={15} />}
                   <span>All categories</span>
                 </button>
 
@@ -490,17 +515,11 @@ const Navbar = () => {
                   <button
                     key={category}
                     className={
-                      selectedCategory === category
-                        ? "selected-option"
-                        : ""
+                      selectedCategory === category ? "selected-option" : ""
                     }
-                    onClick={() =>
-                      selectCategory(category)
-                    }
+                    onClick={() => selectCategory(category)}
                   >
-                    {selectedCategory === category && (
-                      <Check size={15} />
-                    )}
+                    {selectedCategory === category && <Check size={15} />}
 
                     <span>{category}</span>
                   </button>
@@ -514,12 +533,9 @@ const Navbar = () => {
           ====================================== */}
 
           <div className="toolbar-dropdown">
-
             <button
               className={`filter-btn ${
-                selectedStatus ||
-                selectedService ||
-                selectedRating
+                selectedStatus || selectedService || selectedRating
                   ? "active-filter"
                   : ""
               }`}
@@ -533,35 +549,26 @@ const Navbar = () => {
               <SlidersHorizontal size={16} />
 
               <span>
-                {selectedStatus ||
-                selectedService ||
-                selectedRating
+                {selectedStatus || selectedService || selectedRating
                   ? "Filters applied"
                   : "Filters"}
               </span>
 
               <ChevronDown
                 size={16}
-                className={
-                  filterOpen ? "rotate-icon" : ""
-                }
+                className={filterOpen ? "rotate-icon" : ""}
               />
             </button>
 
             {filterOpen && (
               <div className="filter-menu">
-
                 {/* STATUS */}
 
                 <div className="filter-section">
-                  <span className="filter-title">
-                    Shop Status
-                  </span>
+                  <span className="filter-title">Shop Status</span>
 
                   <button
-                    onClick={() =>
-                      selectStatus("Open")
-                    }
+                    onClick={() => selectStatus("Open")}
                     className={
                       selectedStatus === "Open"
                         ? "filter-option selected-option"
@@ -571,15 +578,11 @@ const Navbar = () => {
                     <span className="status-dot open-dot"></span>
                     <span>Open</span>
 
-                    {selectedStatus === "Open" && (
-                      <Check size={15} />
-                    )}
+                    {selectedStatus === "Open" && <Check size={15} />}
                   </button>
 
                   <button
-                    onClick={() =>
-                      selectStatus("Closed")
-                    }
+                    onClick={() => selectStatus("Closed")}
                     className={
                       selectedStatus === "Closed"
                         ? "filter-option selected-option"
@@ -589,9 +592,7 @@ const Navbar = () => {
                     <span className="status-dot closed-dot"></span>
                     <span>Closed</span>
 
-                    {selectedStatus === "Closed" && (
-                      <Check size={15} />
-                    )}
+                    {selectedStatus === "Closed" && <Check size={15} />}
                   </button>
                 </div>
 
@@ -600,14 +601,10 @@ const Navbar = () => {
                 {/* SERVICE */}
 
                 <div className="filter-section">
-                  <span className="filter-title">
-                    Service
-                  </span>
+                  <span className="filter-title">Service</span>
 
                   <button
-                    onClick={() =>
-                      selectService("Delivery")
-                    }
+                    onClick={() => selectService("Delivery")}
                     className={
                       selectedService === "Delivery"
                         ? "filter-option selected-option"
@@ -616,15 +613,11 @@ const Navbar = () => {
                   >
                     <span>Delivery</span>
 
-                    {selectedService === "Delivery" && (
-                      <Check size={15} />
-                    )}
+                    {selectedService === "Delivery" && <Check size={15} />}
                   </button>
 
                   <button
-                    onClick={() =>
-                      selectService("Pickup")
-                    }
+                    onClick={() => selectService("Pickup")}
                     className={
                       selectedService === "Pickup"
                         ? "filter-option selected-option"
@@ -633,9 +626,7 @@ const Navbar = () => {
                   >
                     <span>Pickup</span>
 
-                    {selectedService === "Pickup" && (
-                      <Check size={15} />
-                    )}
+                    {selectedService === "Pickup" && <Check size={15} />}
                   </button>
                 </div>
 
@@ -644,14 +635,10 @@ const Navbar = () => {
                 {/* RATING */}
 
                 <div className="filter-section">
-                  <span className="filter-title">
-                    Minimum Rating
-                  </span>
+                  <span className="filter-title">Minimum Rating</span>
 
                   <button
-                    onClick={() =>
-                      selectRating("4")
-                    }
+                    onClick={() => selectRating("4")}
                     className={
                       selectedRating === "4"
                         ? "filter-option selected-option"
@@ -661,15 +648,11 @@ const Navbar = () => {
                     <Star size={14} fill="currentColor" />
                     <span>4.0+</span>
 
-                    {selectedRating === "4" && (
-                      <Check size={15} />
-                    )}
+                    {selectedRating === "4" && <Check size={15} />}
                   </button>
 
                   <button
-                    onClick={() =>
-                      selectRating("4.5")
-                    }
+                    onClick={() => selectRating("4.5")}
                     className={
                       selectedRating === "4.5"
                         ? "filter-option selected-option"
@@ -679,24 +662,17 @@ const Navbar = () => {
                     <Star size={14} fill="currentColor" />
                     <span>4.5+</span>
 
-                    {selectedRating === "4.5" && (
-                      <Check size={15} />
-                    )}
+                    {selectedRating === "4.5" && <Check size={15} />}
                   </button>
                 </div>
 
                 {/* CLEAR */}
 
-                {(selectedStatus ||
-                  selectedService ||
-                  selectedRating) && (
+                {(selectedStatus || selectedService || selectedRating) && (
                   <>
                     <div className="filter-divider"></div>
 
-                    <button
-                      className="clear-filter-btn"
-                      onClick={clearFilters}
-                    >
+                    <button className="clear-filter-btn" onClick={clearFilters}>
                       Clear filters
                     </button>
                   </>
@@ -710,12 +686,9 @@ const Navbar = () => {
           ====================================== */}
 
           <div className="toolbar-dropdown">
-
             <button
               className={`location-btn ${
-                selectedLocation
-                  ? "active-location"
-                  : ""
+                selectedLocation ? "active-location" : ""
               }`}
               onClick={() => {
                 setLocationOpen(!locationOpen);
@@ -727,35 +700,22 @@ const Navbar = () => {
               <MapPin size={18} />
 
               <span>
-                {selectedLocation
-                  ? selectedLocation.split(",")[0]
-                  : "Quetta"}
+                {selectedLocation ? selectedLocation.split(",")[0] : "Quetta"}
               </span>
 
               <ChevronDown
                 size={16}
-                className={
-                  locationOpen ? "rotate-icon" : ""
-                }
+                className={locationOpen ? "rotate-icon" : ""}
               />
             </button>
 
             {locationOpen && (
               <div className="location-menu">
-
                 <button
-                  className={
-                    !selectedLocation
-                      ? "selected-option"
-                      : ""
-                  }
-                  onClick={() =>
-                    selectLocation("")
-                  }
+                  className={!selectedLocation ? "selected-option" : ""}
+                  onClick={() => selectLocation("")}
                 >
-                  {!selectedLocation && (
-                    <Check size={15} />
-                  )}
+                  {!selectedLocation && <Check size={15} />}
 
                   <span>All Quetta</span>
                 </button>
@@ -764,17 +724,11 @@ const Navbar = () => {
                   <button
                     key={location}
                     className={
-                      selectedLocation === location
-                        ? "selected-option"
-                        : ""
+                      selectedLocation === location ? "selected-option" : ""
                     }
-                    onClick={() =>
-                      selectLocation(location)
-                    }
+                    onClick={() => selectLocation(location)}
                   >
-                    {selectedLocation === location && (
-                      <Check size={15} />
-                    )}
+                    {selectedLocation === location && <Check size={15} />}
 
                     <span>{location}</span>
                   </button>
@@ -785,10 +739,7 @@ const Navbar = () => {
 
           {/* SEARCH BUTTON */}
 
-          <button
-            className="toolbar-search-btn"
-            onClick={() => handleSearch()}
-          >
+          <button className="toolbar-search-btn" onClick={() => handleSearch()}>
             <Search size={18} />
             Search
           </button>
@@ -801,63 +752,31 @@ const Navbar = () => {
 
       {mobileMenu && (
         <div className="mobile-menu">
-
-          <a
-            href="#shops"
-            onClick={() =>
-              setMobileMenu(false)
-            }
-          >
+          <a href="#shops" onClick={() => setMobileMenu(false)}>
             Shops
           </a>
 
-          <a
-            href="#categories"
-            onClick={() =>
-              setMobileMenu(false)
-            }
-          >
+          <a href="#categories" onClick={() => setMobileMenu(false)}>
             Categories
           </a>
 
-          <a
-            href="#how-it-works"
-            onClick={() =>
-              setMobileMenu(false)
-            }
-          >
+          <a href="#how-it-works" onClick={() => setMobileMenu(false)}>
             How it works
           </a>
 
-          <a
-            href="#about"
-            onClick={() =>
-              setMobileMenu(false)
-            }
-          >
+          <a href="#about" onClick={() => setMobileMenu(false)}>
             About
           </a>
 
-          <a
-            href="#contact"
-            onClick={() =>
-              setMobileMenu(false)
-            }
-          >
+          <a href="#contact" onClick={() => setMobileMenu(false)}>
             Contact
           </a>
 
-          <button
-            className="mobile-signin"
-            onClick={goToLogin}
-          >
+          <button className="mobile-signin" onClick={goToLogin}>
             Sign in
           </button>
 
-          <button
-            className="mobile-vendor"
-            onClick={goToSignup}
-          >
+          <button className="mobile-vendor" onClick={goToSignup}>
             Become a vendor
           </button>
         </div>

@@ -1,11 +1,23 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+} from "lucide-react";
+
+import { useUser } from "../../Context/UserContext";
 import "./Auth.css";
 
 const Login = () => {
+  const { login } = useUser();
   const navigate = useNavigate();
 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -16,30 +28,40 @@ const Login = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
+    setFormData((previousData) => ({
+      ...previousData,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    console.log("Login data:", formData);
+    setError("");
+    setSuccess("");
 
-    // Backend login will be connected here later
-  };
+    const { email, password } = formData;
+
+    const result = login(email, password);
+
+    if (!result.success) {
+      setError(result.message || "Unable to sign in. Please try again.");
+      return;
+    }
+
+    setSuccess("Login successful!");
+
+    navigate("/");
+  }
 
   return (
     <div className="auth-page">
-
       {/* Left Side */}
       <div className="auth-info">
-
-        <div className="auth-logo">
+        <Link to="/" className="auth-logo">
           <div className="auth-logo-icon">SP</div>
           <span>Shop Point</span>
-        </div>
+        </Link>
 
         <div className="auth-info-content">
           <span className="auth-label">
@@ -56,46 +78,30 @@ const Login = () => {
             you need, and order from nearby businesses with ease.
           </p>
         </div>
-
       </div>
-
 
       {/* Right Side */}
       <div className="auth-form-side">
-
         <div className="auth-form-container">
-
           {/* Mobile Logo */}
-          <div className="auth-mobile-logo">
+          <Link to="/" className="auth-mobile-logo">
             <div className="auth-logo-icon">SP</div>
             <span>Shop Point</span>
-          </div>
+          </Link>
 
           {/* Heading */}
           <div className="auth-heading">
             <h2>Welcome back</h2>
-
-            <p>
-              Sign in to your Shop Point account
-            </p>
+            <p>Sign in to your Shop Point account</p>
           </div>
 
-
           {/* Login Form */}
-          <form
-            className="auth-form"
-            onSubmit={handleSubmit}
-          >
-
+          <form className="auth-form" onSubmit={handleSubmit}>
             {/* Email */}
             <div className="form-group">
-
-              <label htmlFor="email">
-                Email address
-              </label>
+              <label htmlFor="email">Email address</label>
 
               <div className="input-wrapper">
-
                 <Mail size={19} />
 
                 <input
@@ -105,31 +111,23 @@ const Login = () => {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
+                  autoComplete="email"
                   required
                 />
-
               </div>
-
             </div>
-
 
             {/* Password */}
             <div className="form-group">
-
               <div className="password-label-row">
-
-                <label htmlFor="password">
-                  Password
-                </label>
+                <label htmlFor="password">Password</label>
 
                 <Link to="/forgot-password">
                   Forgot password?
                 </Link>
-
               </div>
 
               <div className="input-wrapper">
-
                 <Lock size={19} />
 
                 <input
@@ -139,6 +137,7 @@ const Login = () => {
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
+                  autoComplete="current-password"
                   required
                 />
 
@@ -146,9 +145,11 @@ const Login = () => {
                   type="button"
                   className="password-toggle"
                   onClick={() =>
-                    setShowPassword(!showPassword)
+                    setShowPassword((previous) => !previous)
                   }
-                  aria-label="Toggle password visibility"
+                  aria-label={
+                    showPassword ? "Hide password" : "Show password"
+                  }
                 >
                   {showPassword ? (
                     <EyeOff size={19} />
@@ -156,63 +157,48 @@ const Login = () => {
                     <Eye size={19} />
                   )}
                 </button>
-
               </div>
-
             </div>
-
 
             {/* Remember Me */}
             <div className="remember-row">
-
               <label className="remember-label">
-
                 <input type="checkbox" />
-
-                <span>
-                  Remember me
-                </span>
-
+                <span>Remember me</span>
               </label>
-
             </div>
 
+            {/* Error and Success Messages */}
+            {error && (
+              <p className="auth-error" role="alert">
+                {error}
+              </p>
+            )}
+
+            {success && (
+              <p className="auth-success" role="status">
+                {success}
+              </p>
+            )}
 
             {/* Login Button */}
-            <button
-              type="submit"
-              className="auth-submit-btn"
-            >
+            <button type="submit" className="auth-submit-btn">
               Sign in
               <ArrowRight size={18} />
             </button>
-
           </form>
-
 
           {/* Signup */}
           <div className="auth-switch">
-
-            <span>
-              Don't have an account?
-            </span>
-
-            <Link to="/signup">
-              Create an account
-            </Link>
-
+            <span>Don't have an account?</span>
+            <Link to="/signup">Create an account</Link>
           </div>
-
 
           {/* Other Registration */}
           <div className="registration-options">
-
-            <p>
-              Are you joining Shop Point for another purpose?
-            </p>
+            <p>Are you joining Shop Point for another purpose?</p>
 
             <div className="registration-links">
-
               <Link to="/vendor/register">
                 Register as a Vendor
               </Link>
@@ -222,24 +208,15 @@ const Login = () => {
               <Link to="/rider/register">
                 Register as a Rider
               </Link>
-
             </div>
-
           </div>
 
-
           {/* Back to Home */}
-          <Link
-            to="/"
-            className="back-home"
-          >
+          <Link to="/" className="back-home">
             ← Back to Shop Point
           </Link>
-
         </div>
-
       </div>
-
     </div>
   );
 };
